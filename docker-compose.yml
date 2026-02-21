@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  event-extractor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Passes the API key from your host environment to the build process
+        - GEMINI_API_KEY=${GEMINI_API_KEY}
+    image: event-extractor-app
+    container_name: event-extractor-container
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
